@@ -18,7 +18,7 @@ It is for people who want `from sklplus.… import …` and standard `fit` / `tr
 
 ## Install
 
-The PyPI / import name is **`sklplus`** (the GitHub repo may still be named `sklearnplus`).
+PyPI / import / GitHub repo name: **`sklplus`** (https://github.com/IncubatorShokuhou/sklplus).
 
 Editable (from a clone):
 
