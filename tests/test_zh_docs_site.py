@@ -17,6 +17,7 @@ PUBLISH = ROOT / ".github" / "workflows" / "publish-to-pypi.yml"
 GITIGNORE = ROOT / ".gitignore"
 README_EN = ROOT / "README.md"
 README_ZH = ROOT / "README.zh-CN.md"
+WIKI = ROOT / "wiki"
 
 PAGES_URL = "https://incubatorshokuhou.github.io/sklplus/"
 WIKI_URL = "https://github.com/IncubatorShokuhou/sklplus/wiki"
@@ -105,3 +106,51 @@ def test_readmes_link_pages_and_wiki():
         text = path.read_text(encoding="utf-8")
         assert PAGES_URL in text
         assert WIKI_URL in text
+
+
+def test_wiki_source_pages_cover_required_topics():
+    names = {
+        "Home.md",
+        "安装与环境.md",
+        "导入约定.md",
+        "预处理与采样.md",
+        "示例索引.md",
+        "FAQ.md",
+        "_Sidebar.md",
+    }
+    present = {p.name for p in WIKI.glob("*.md")} | {p.name for p in WIKI.glob("_*.md")}
+    assert names <= present
+
+    home = (WIKI / "Home.md").read_text(encoding="utf-8")
+    assert "不是 AutoML" in home
+    assert "get_model" in home
+    assert PAGES_URL in home
+
+    imports = (WIKI / "导入约定.md").read_text(encoding="utf-8")
+    assert "ImbPipeline" in imports
+    assert "from sklplus.xgboost import XGBClassifier as B" in imports
+    assert "fit_resample" in imports
+
+    prep = (WIKI / "预处理与采样.md").read_text(encoding="utf-8")
+    for name in (
+        "CleanColumnNames",
+        "RareCategoryGrouper",
+        "DateFeatureExtractor",
+        "TargetLabelEncoder",
+        "GroupFeatures",
+        "RemoveMulticollinearity",
+        "IterativeImputerPlus",
+        "TextEmbedder",
+        "RemoveOutliers",
+    ):
+        assert name in prep
+
+    examples = (WIKI / "示例索引.md").read_text(encoding="utf-8")
+    for i in range(1, 6):
+        assert f"0{i}_" in examples
+
+    faq = (WIKI / "FAQ.md").read_text(encoding="utf-8")
+    assert "不是 AutoML" in faq or "这是 AutoML" in faq
+    assert "PyCaret" in faq
+    assert "时序" in faq
+    assert "NLP" in faq
