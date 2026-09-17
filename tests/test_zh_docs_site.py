@@ -67,7 +67,7 @@ def test_index_html_exists_and_is_chinese_landing():
     assert GITHUB_URL in html
     assert WIKI_URL in html
     assert "get_model" in html and "setup" in html
-    assert "不是 AutoML" in html or "不是 AutoML" in html.replace("：", ":")
+    assert "不是 AutoML" in html
     assert "MkDocs" not in html
     assert "Sphinx" not in html
 
@@ -87,7 +87,8 @@ def test_pages_workflow_deploys_docs_via_official_actions():
     text = WORKFLOW.read_text(encoding="utf-8")
     assert "actions/upload-pages-artifact" in text
     assert "actions/deploy-pages" in text
-    assert "path: docs" in text or "path: 'docs'" in text or 'path: "docs"' in text
+        assert "path: docs" in text or "path: 'docs'" in text or 'path: "docs"' in text
+        assert "include-hidden-files: true" in text
     assert "pages: write" in text
     assert "id-token: write" in text
     assert "publish-to-pypi.yml" not in text
