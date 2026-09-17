@@ -2,7 +2,7 @@
 
 [English README](README.md)
 
-sklplus 0.1.0 是一层薄的表格估计器聚合包。多数符号是再导出（常常与上游是同一对象）；少量适配器和自写预处理器用来补我们手拼 `Pipeline` 时缺的那几块。
+sklplus 0.1.1 是一层薄的表格估计器聚合包。多数符号是再导出（常常与上游是同一对象）；少量适配器和自写预处理器用来补我们手拼 `Pipeline` 时缺的那几块。
 
 面向需要 `from sklplus.… import …`、按标准 `fit` / `transform` / `predict` 组合流水线的人。不是 AutoML：没有 `get_model`、没有 `setup()`、也没有按字符串 ID 取模型的工厂。
 
@@ -82,7 +82,7 @@ assert A is B
 python examples/01_classification_pipeline.py
 ```
 
-## 0.1.0 里的自写预处理
+## 0.1.1 里的自写预处理
 
 在 `sklplus.preprocessing`（与再导出的 scaler/encoder 一起）：
 
@@ -108,6 +108,6 @@ python examples/01_classification_pipeline.py
 
 仍缺：Optuna/skopt 搜索封装；更完整的 `check_estimator`；文档站点。P1 自写预处理 / `RemoveOutliers` 采样器已实现。
 
-许可证：TODO（`pyproject.toml` 里尚未声明）。
+许可证：MIT（见 `LICENSE`）。
 
 贡献方式：TODO。

@@ -1,9 +1,12 @@
 [project]
 name = "sklplus"
-version = "0.1.0"
+version = "0.1.1"
 description = "Big sklearn: re-exports and light wrappers for tabular ML pipelines"
 readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Hao Lyu" }]
 dependencies = [
   "scikit-learn>=1.3",
   "numpy",
@@ -22,6 +25,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=7", "ruff"]
+
+[project.urls]
+Homepage = "https://github.com/IncubatorShokuhou/sklplus"
+Repository = "https://github.com/IncubatorShokuhou/sklplus"
+Issues = "https://github.com/IncubatorShokuhou/sklplus/issues"
 
 [build-system]
 requires = ["hatchling"]
