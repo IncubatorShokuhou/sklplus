@@ -15,10 +15,10 @@ from sklearn.preprocessing import (
     TargetEncoder,
 )
 
-from sklearnplus.preprocessing._clean_column_names import CleanColumnNames
-from sklearnplus.preprocessing._date_features import DateFeatureExtractor
-from sklearnplus.preprocessing._rare_category import RareCategoryGrouper
-from sklearnplus.preprocessing._target_label import TargetLabelEncoder
+from sklplus.preprocessing._clean_column_names import CleanColumnNames
+from sklplus.preprocessing._date_features import DateFeatureExtractor
+from sklplus.preprocessing._rare_category import RareCategoryGrouper
+from sklplus.preprocessing._target_label import TargetLabelEncoder
 
 __all__ = [
     "CleanColumnNames",

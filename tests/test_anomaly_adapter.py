@@ -4,7 +4,7 @@ from sklearn.base import clone
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from sklearnplus.anomaly import HBOS, IForest, KNN
+from sklplus.anomaly import HBOS, IForest, KNN
 
 
 def test_iforest_in_pipeline():
@@ -30,7 +30,7 @@ def test_detector_pipeline_and_clone(Detector):
 
 
 def test_cblof_in_pipeline():
-    from sklearnplus.anomaly import CBLOF
+    from sklplus.anomaly import CBLOF
 
     rng = np.random.RandomState(1)
     X = rng.randn(80, 4)

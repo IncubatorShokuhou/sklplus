@@ -1,4 +1,4 @@
-from sklearnplus.anomaly._adapters import (
+from sklplus.anomaly._adapters import (
     ABOD,
     CBLOF,
     COF,

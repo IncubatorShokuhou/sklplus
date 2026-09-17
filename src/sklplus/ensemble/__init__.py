@@ -16,9 +16,9 @@ from sklearn.ensemble import (
     VotingRegressor,
 )
 
-from sklearnplus.catboost import CatBoostClassifier, CatBoostRegressor
-from sklearnplus.lightgbm import LGBMClassifier, LGBMRegressor
-from sklearnplus.xgboost import XGBClassifier, XGBRegressor
+from sklplus.catboost import CatBoostClassifier, CatBoostRegressor
+from sklplus.lightgbm import LGBMClassifier, LGBMRegressor
+from sklplus.xgboost import XGBClassifier, XGBRegressor
 
 __all__ = [
     "AdaBoostClassifier",

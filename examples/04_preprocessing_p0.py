@@ -2,7 +2,7 @@
 
 import pandas as pd
 
-from sklearnplus.preprocessing import (
+from sklplus.preprocessing import (
     CleanColumnNames,
     DateFeatureExtractor,
     RareCategoryGrouper,

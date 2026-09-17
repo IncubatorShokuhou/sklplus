@@ -1,13 +1,13 @@
-"""End-to-end Pipeline smokes using sklearnplus imports only."""
+"""End-to-end Pipeline smokes using sklplus imports only."""
 
 import numpy as np
 from sklearn.datasets import load_breast_cancer, load_diabetes, make_blobs
 
 
 def test_clf_pipeline():
-    from sklearnplus.ensemble import RandomForestClassifier
-    from sklearnplus.pipeline import Pipeline
-    from sklearnplus.preprocessing import StandardScaler
+    from sklplus.ensemble import RandomForestClassifier
+    from sklplus.pipeline import Pipeline
+    from sklplus.preprocessing import StandardScaler
 
     X, y = load_breast_cancer(return_X_y=True)
     pipe = Pipeline(
@@ -21,9 +21,9 @@ def test_clf_pipeline():
 
 
 def test_reg_pipeline():
-    from sklearnplus.ensemble import RandomForestRegressor
-    from sklearnplus.pipeline import Pipeline
-    from sklearnplus.preprocessing import StandardScaler
+    from sklplus.ensemble import RandomForestRegressor
+    from sklplus.pipeline import Pipeline
+    from sklplus.preprocessing import StandardScaler
 
     X, y = load_diabetes(return_X_y=True)
     pipe = Pipeline(
@@ -39,9 +39,9 @@ def test_reg_pipeline():
 
 
 def test_cluster_pipeline():
-    from sklearnplus.cluster import KMeans
-    from sklearnplus.pipeline import Pipeline
-    from sklearnplus.preprocessing import StandardScaler
+    from sklplus.cluster import KMeans
+    from sklplus.pipeline import Pipeline
+    from sklplus.preprocessing import StandardScaler
 
     X, _ = make_blobs(n_samples=120, centers=3, n_features=4, random_state=0)
     pipe = Pipeline(
@@ -56,9 +56,9 @@ def test_cluster_pipeline():
 
 
 def test_anomaly_pipeline():
-    from sklearnplus.anomaly import IForest
-    from sklearnplus.pipeline import Pipeline
-    from sklearnplus.preprocessing import StandardScaler
+    from sklplus.anomaly import IForest
+    from sklplus.pipeline import Pipeline
+    from sklplus.preprocessing import StandardScaler
 
     rng = np.random.RandomState(0)
     X = rng.randn(100, 4)

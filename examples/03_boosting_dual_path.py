@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from sklearnplus.ensemble import XGBClassifier as EnsembleXGB
-from sklearnplus.xgboost import XGBClassifier as ModuleXGB
+from sklplus.ensemble import XGBClassifier as EnsembleXGB
+from sklplus.xgboost import XGBClassifier as ModuleXGB
 
 
 def main() -> int:

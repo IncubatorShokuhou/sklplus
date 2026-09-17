@@ -1,11 +1,11 @@
 import importlib
 import pytest
-from sklearnplus._coverage import PUBLIC_SYMBOLS
+from sklplus._coverage import PUBLIC_SYMBOLS
 
 
 def test_version():
-    import sklearnplus
-    assert sklearnplus.__version__ == "0.1.0"
+    import sklplus
+    assert sklplus.__version__ == "0.1.0"
 
 
 @pytest.mark.parametrize("module_path,attr", PUBLIC_SYMBOLS)
@@ -15,6 +15,6 @@ def test_public_symbol_importable(module_path, attr):
 
 
 def test_no_get_model():
-    import sklearnplus
+    import sklplus
 
-    assert not hasattr(sklearnplus, "get_model")
+    assert not hasattr(sklplus, "get_model")

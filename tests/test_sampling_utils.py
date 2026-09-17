@@ -2,9 +2,9 @@ import numpy as np
 from imblearn.over_sampling import SMOTE as ImbSMOTE
 from sklearn.datasets import make_classification
 
-from sklearnplus.linear_model import LogisticRegression
-from sklearnplus.pipeline import ImbPipeline
-from sklearnplus.sampling import SMOTE
+from sklplus.linear_model import LogisticRegression
+from sklplus.pipeline import ImbPipeline
+from sklplus.sampling import SMOTE
 
 
 def test_smote_is_imblearn():
@@ -33,7 +33,7 @@ def test_imbpipeline_smote_logistic():
 def test_pipeline_make_pipeline_identity():
     from sklearn.pipeline import Pipeline as SkPipeline
     from sklearn.pipeline import make_pipeline as sk_make_pipeline
-    from sklearnplus.pipeline import Pipeline, make_pipeline
+    from sklplus.pipeline import Pipeline, make_pipeline
 
     assert Pipeline is SkPipeline
     assert make_pipeline is sk_make_pipeline
@@ -48,12 +48,12 @@ def test_compose_impute_metrics_samples():
     from sklearn.metrics import accuracy_score as sk_acc
     from sklearn.model_selection import train_test_split as sk_tts
 
-    from sklearnplus.compose import ColumnTransformer
-    from sklearnplus.decomposition import PCA
-    from sklearnplus.feature_selection import SelectKBest
-    from sklearnplus.impute import SimpleImputer
-    from sklearnplus.metrics import accuracy_score
-    from sklearnplus.model_selection import train_test_split
+    from sklplus.compose import ColumnTransformer
+    from sklplus.decomposition import PCA
+    from sklplus.feature_selection import SelectKBest
+    from sklplus.impute import SimpleImputer
+    from sklplus.metrics import accuracy_score
+    from sklplus.model_selection import train_test_split
 
     assert ColumnTransformer is SkCT
     assert SimpleImputer is SkSimpleImputer

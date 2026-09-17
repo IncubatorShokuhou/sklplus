@@ -2,9 +2,9 @@
 
 import numpy as np
 
-from sklearnplus.linear_model import LogisticRegression
-from sklearnplus.pipeline import ImbPipeline
-from sklearnplus.sampling import SMOTE
+from sklplus.linear_model import LogisticRegression
+from sklplus.pipeline import ImbPipeline
+from sklplus.sampling import SMOTE
 
 
 def main() -> int:

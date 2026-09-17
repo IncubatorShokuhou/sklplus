@@ -1,10 +1,10 @@
-# sklearnplus
+# sklplus
 
 [中文文档](README.zh-CN.md)
 
-sklearnplus 0.1.0 is a thin umbrella around scikit-learn-style tabular estimators. Most symbols are re-exports (often the same object as upstream). A few adapters and custom preprocessors fill gaps we care about when building `Pipeline`s by hand.
+sklplus 0.1.0 is a thin umbrella around scikit-learn-style tabular estimators. Most symbols are re-exports (often the same object as upstream). A few adapters and custom preprocessors fill gaps we care about when building `Pipeline`s by hand.
 
-It is for people who want `from sklearnplus.… import …` and standard `fit` / `transform` / `predict` composition. It is not AutoML: there is no `get_model`, no `setup()`, and no string-ID model factory.
+It is for people who want `from sklplus.… import …` and standard `fit` / `transform` / `predict` composition. It is not AutoML: there is no `get_model`, no `setup()`, and no string-ID model factory.
 
 **Fits:** classification, regression, clustering, and anomaly detection on tabular data, with preprocess / sampling / selection / search / metrics helpers re-exported under sklearn-like paths.
 
@@ -18,6 +18,8 @@ It is for people who want `from sklearnplus.… import …` and standard `fit` /
 
 ## Install
 
+The PyPI / import name is **`sklplus`** (the GitHub repo may still be named `sklearnplus`).
+
 Editable (from a clone):
 
 ```bash
@@ -29,30 +31,30 @@ pip install -e ".[dev]"
 ## Minimal usage
 
 ```python
-from sklearnplus.linear_model import LogisticRegression, Ridge
-from sklearnplus.ensemble import RandomForestClassifier, XGBClassifier
-from sklearnplus.preprocessing import (
+from sklplus.linear_model import LogisticRegression, Ridge
+from sklplus.ensemble import RandomForestClassifier, XGBClassifier
+from sklplus.preprocessing import (
     StandardScaler,
     CleanColumnNames,
     RareCategoryGrouper,
     DateFeatureExtractor,
     TargetLabelEncoder,
 )
-from sklearnplus.sampling import SMOTE
-from sklearnplus.anomaly import IForest
-from sklearnplus.pipeline import Pipeline, ImbPipeline
-from sklearnplus.compose import ColumnTransformer
+from sklplus.sampling import SMOTE
+from sklplus.anomaly import IForest
+from sklplus.pipeline import Pipeline, ImbPipeline
+from sklplus.compose import ColumnTransformer
 ```
 
-Re-exports aim to be identity with upstream when possible, e.g. `sklearnplus.ensemble.RandomForestClassifier is sklearn.ensemble.RandomForestClassifier`.
+Re-exports aim to be identity with upstream when possible, e.g. `sklplus.ensemble.RandomForestClassifier is sklearn.ensemble.RandomForestClassifier`.
 
 ### Boosting import paths
 
-`XGBClassifier` / `LGBMClassifier` / `CatBoostClassifier` (and the regressors) are exported from both `sklearnplus.ensemble` and `sklearnplus.xgboost` / `lightgbm` / `catboost`. They are the same class object:
+`XGBClassifier` / `LGBMClassifier` / `CatBoostClassifier` (and the regressors) are exported from both `sklplus.ensemble` and `sklplus.xgboost` / `lightgbm` / `catboost`. They are the same class object:
 
 ```python
-from sklearnplus.ensemble import XGBClassifier as A
-from sklearnplus.xgboost import XGBClassifier as B
+from sklplus.ensemble import XGBClassifier as A
+from sklplus.xgboost import XGBClassifier as B
 assert A is B
 ```
 
@@ -78,14 +80,14 @@ python examples/01_classification_pipeline.py
 
 ## Custom preprocessors in 0.1.0
 
-These live in `sklearnplus.preprocessing` (alongside re-exported scalers/encoders):
+These live in `sklplus.preprocessing` (alongside re-exported scalers/encoders):
 
 - `CleanColumnNames`
 - `DateFeatureExtractor`
 - `RareCategoryGrouper`
 - `TargetLabelEncoder`
 
-Anomaly detectors under `sklearnplus.anomaly` are thin wrappers around pyod (`IForest`, `LOF`, …) so they can sit in a sklearn `Pipeline`.
+Anomaly detectors under `sklplus.anomaly` are thin wrappers around pyod (`IForest`, `LOF`, …) so they can sit in a sklearn `Pipeline`.
 
 ## Known gaps
 

@@ -1,4 +1,4 @@
-"""Identity checks: sklearnplus re-exports must be the same object as sklearn."""
+"""Identity checks: sklplus re-exports must be the same object as sklearn."""
 import importlib
 
 import pytest
@@ -16,7 +16,7 @@ from sklearn import (
     tree as sk_tree,
 )
 
-from sklearnplus import (
+from sklplus import (
     discriminant_analysis as sp_da,
     dummy as sp_dummy,
     ensemble as sp_ens,
@@ -58,11 +58,11 @@ def test_reexport_identity(sp_mod, sk_mod, name):
 
 def test_kmeans_is_sklearn():
     from sklearn.cluster import KMeans as sk_km
-    from sklearnplus.cluster import KMeans as sp_km
+    from sklplus.cluster import KMeans as sp_km
     assert sp_km is sk_km
 
 
 def test_kmodes_importable():
-    from sklearnplus.cluster import KModes
+    from sklplus.cluster import KModes
     from kmodes.kmodes import KModes as upstream
     assert KModes is upstream

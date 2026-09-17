@@ -2,9 +2,9 @@
 
 import numpy as np
 
-from sklearnplus.ensemble import RandomForestClassifier
-from sklearnplus.pipeline import Pipeline
-from sklearnplus.preprocessing import StandardScaler
+from sklplus.ensemble import RandomForestClassifier
+from sklplus.pipeline import Pipeline
+from sklplus.preprocessing import StandardScaler
 
 
 def main() -> int:

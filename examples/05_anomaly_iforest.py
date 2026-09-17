@@ -2,9 +2,9 @@
 
 import numpy as np
 
-from sklearnplus.anomaly import IForest
-from sklearnplus.pipeline import Pipeline
-from sklearnplus.preprocessing import StandardScaler
+from sklplus.anomaly import IForest
+from sklplus.pipeline import Pipeline
+from sklplus.preprocessing import StandardScaler
 
 
 def main() -> int:

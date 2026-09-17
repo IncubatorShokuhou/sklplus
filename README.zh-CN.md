@@ -1,10 +1,10 @@
-# sklearnplus
+# sklplus
 
 [English README](README.md)
 
-sklearnplus 0.1.0 是一层薄的表格估计器聚合包。多数符号是再导出（常常与上游是同一对象）；少量适配器和自写预处理器用来补我们手拼 `Pipeline` 时缺的那几块。
+sklplus 0.1.0 是一层薄的表格估计器聚合包。多数符号是再导出（常常与上游是同一对象）；少量适配器和自写预处理器用来补我们手拼 `Pipeline` 时缺的那几块。
 
-面向需要 `from sklearnplus.… import …`、按标准 `fit` / `transform` / `predict` 组合流水线的人。不是 AutoML：没有 `get_model`、没有 `setup()`、也没有按字符串 ID 取模型的工厂。
+面向需要 `from sklplus.… import …`、按标准 `fit` / `transform` / `predict` 组合流水线的人。不是 AutoML：没有 `get_model`、没有 `setup()`、也没有按字符串 ID 取模型的工厂。
 
 **适用：** 表格上的分类、回归、聚类、异常检测，以及预处理 / 采样 / 特征选择 / 搜索 / 指标等按 sklearn 风格路径再导出的辅助符号。
 
@@ -18,6 +18,8 @@ sklearnplus 0.1.0 是一层薄的表格估计器聚合包。多数符号是再�
 
 ## 安装
 
+PyPI / import 名为 **`sklplus`**（GitHub 仓库名仍可能是 `sklearnplus`）。
+
 在克隆目录里可编辑安装：
 
 ```bash
@@ -29,30 +31,30 @@ pip install -e ".[dev]"
 ## 最小用法
 
 ```python
-from sklearnplus.linear_model import LogisticRegression, Ridge
-from sklearnplus.ensemble import RandomForestClassifier, XGBClassifier
-from sklearnplus.preprocessing import (
+from sklplus.linear_model import LogisticRegression, Ridge
+from sklplus.ensemble import RandomForestClassifier, XGBClassifier
+from sklplus.preprocessing import (
     StandardScaler,
     CleanColumnNames,
     RareCategoryGrouper,
     DateFeatureExtractor,
     TargetLabelEncoder,
 )
-from sklearnplus.sampling import SMOTE
-from sklearnplus.anomaly import IForest
-from sklearnplus.pipeline import Pipeline, ImbPipeline
-from sklearnplus.compose import ColumnTransformer
+from sklplus.sampling import SMOTE
+from sklplus.anomaly import IForest
+from sklplus.pipeline import Pipeline, ImbPipeline
+from sklplus.compose import ColumnTransformer
 ```
 
-再导出在能做到时与上游保持同一对象，例如 `sklearnplus.ensemble.RandomForestClassifier is sklearn.ensemble.RandomForestClassifier`。
+再导出在能做到时与上游保持同一对象，例如 `sklplus.ensemble.RandomForestClassifier is sklearn.ensemble.RandomForestClassifier`。
 
 ### Boosting 的两条 import 路径
 
-`XGBClassifier` / `LGBMClassifier` / `CatBoostClassifier`（以及对应的 Regressor）同时出现在 `sklearnplus.ensemble` 与 `sklearnplus.xgboost` / `lightgbm` / `catboost`。它们是同一个类对象：
+`XGBClassifier` / `LGBMClassifier` / `CatBoostClassifier`（以及对应的 Regressor）同时出现在 `sklplus.ensemble` 与 `sklplus.xgboost` / `lightgbm` / `catboost`。它们是同一个类对象：
 
 ```python
-from sklearnplus.ensemble import XGBClassifier as A
-from sklearnplus.xgboost import XGBClassifier as B
+from sklplus.ensemble import XGBClassifier as A
+from sklplus.xgboost import XGBClassifier as B
 assert A is B
 ```
 
@@ -78,14 +80,14 @@ python examples/01_classification_pipeline.py
 
 ## 0.1.0 里的自写预处理
 
-在 `sklearnplus.preprocessing`（与再导出的 scaler/encoder 一起）：
+在 `sklplus.preprocessing`（与再导出的 scaler/encoder 一起）：
 
 - `CleanColumnNames`
 - `DateFeatureExtractor`
 - `RareCategoryGrouper`
 - `TargetLabelEncoder`
 
-`sklearnplus.anomaly` 下是对 pyod 的薄包装（`IForest`、`LOF` 等），以便放进 sklearn `Pipeline`。
+`sklplus.anomaly` 下是对 pyod 的薄包装（`IForest`、`LOF` 等），以便放进 sklearn `Pipeline`。
 
 ## 已知缺口
 

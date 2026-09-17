@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 from sklearn.preprocessing import StandardScaler as SkStandardScaler
 
-from sklearnplus.preprocessing import (
+from sklplus.preprocessing import (
     CleanColumnNames,
     DateFeatureExtractor,
     RareCategoryGrouper,
