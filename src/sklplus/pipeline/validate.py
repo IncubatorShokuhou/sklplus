@@ -24,10 +24,10 @@ from sklplus.exceptions import (
     PipelineKindError,
     StepConflictError,
 )
-from sklplus.preprocessing import IterativeImputerPlus, RemoveMulticollinearity
+from sklplus.preprocessing._iterative_imputer_plus import IterativeImputerPlus
+from sklplus.preprocessing._remove_multicollinearity import RemoveMulticollinearity
 
 _ALLOWED_KINDS = frozenset({"sklearn", "imblearn"})
-_SKIPPED_ESTIMATORS = {None, "passthrough", "drop"}
 _GLOBAL_SCALERS = (StandardScaler, MinMaxScaler, RobustScaler, Normalizer, MaxAbsScaler)
 _IMPUTERS = (SimpleImputer, IterativeImputer, IterativeImputerPlus)
 _PCA_FAMILY = (PCA, IncrementalPCA, KernelPCA)
@@ -66,7 +66,7 @@ def _iter_named_steps(steps) -> list[tuple[str, object]]:
 
 
 def _is_skipped(est) -> bool:
-    return est in _SKIPPED_ESTIMATORS
+    return est is None or est == "passthrough" or est == "drop"
 
 
 def _cls_name(est) -> str:
@@ -243,7 +243,9 @@ PIPELINE_RULES: list[PipelineRule] = [
 ]
 
 
-def validate_pipeline_steps(steps: Sequence, *, kind: str) -> None:
+def validate_pipeline_steps(
+    steps: Sequence, *, kind: str, stacklevel: int = 2
+) -> None:
     """Run the v0.1 conflict rules on ``steps``.
 
     Parameters
@@ -253,6 +255,9 @@ def validate_pipeline_steps(steps: Sequence, *, kind: str) -> None:
     kind :
         ``"sklearn"`` or ``"imblearn"``. Sampler kind-errors only apply to
         ``"sklearn"``.
+    stacklevel :
+        Passed to :func:`warnings.warn` so callers (e.g. Pipeline) can point
+        at user code.
 
     Raises
     ------
@@ -275,7 +280,9 @@ def validate_pipeline_steps(steps: Sequence, *, kind: str) -> None:
         issues.extend(rule.check(steps, kind=kind))
     for issue in issues:
         if issue.severity == "warning":
-            warnings.warn(issue.message, PipelineConflictWarning, stacklevel=2)
+            warnings.warn(
+                issue.message, PipelineConflictWarning, stacklevel=stacklevel
+            )
     errors = [issue for issue in issues if issue.severity == "error"]
     if errors:
         exc_type = errors[0].exc_type or PipelineKindError

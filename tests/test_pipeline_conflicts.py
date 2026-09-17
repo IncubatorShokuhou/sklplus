@@ -414,6 +414,18 @@ def test_passthrough_and_drop_steps_are_ignored():
         validate_pipeline_steps(steps, kind="sklearn")
 
 
+def test_consecutive_scaler_warning_points_at_caller():
+    with pytest.warns(PipelineConflictWarning) as recorded:
+        Pipeline(
+            [
+                ("a", StandardScaler()),
+                ("b", MinMaxScaler()),
+                ("clf", _clf()),
+            ]
+        )
+    assert recorded[0].filename.endswith("test_pipeline_conflicts.py")
+
+
 def test_clone_roundtrip_keeps_check_conflicts():
     pipe = Pipeline(
         [("scaler", StandardScaler()), ("clf", _clf())],
@@ -422,6 +434,54 @@ def test_clone_roundtrip_keeps_check_conflicts():
     cloned = clone(pipe)
     assert isinstance(cloned, Pipeline)
     assert cloned.check_conflicts is True
+
+
+def test_pipeline_clone_and_set_params_keep_parent_hyperparams():
+    pipe = Pipeline(
+        [("scaler", StandardScaler()), ("clf", _clf())],
+        memory="cachedir",
+        verbose=True,
+        transform_input=None,
+    )
+    params = pipe.get_params(deep=False)
+    assert params["memory"] == "cachedir"
+    assert params["verbose"] is True
+    assert "transform_input" in params
+    assert "check_conflicts" in params
+
+    cloned = clone(pipe)
+    assert cloned.memory == "cachedir"
+    assert cloned.verbose is True
+    assert cloned.check_conflicts is True
+
+    pipe.set_params(verbose=False, memory=None)
+    assert pipe.verbose is False
+    assert pipe.memory is None
+
+
+def test_imbpipeline_clone_keeps_parent_hyperparams():
+    pipe = ImbPipeline(
+        [("sample", SMOTE()), ("clf", _clf())],
+        memory="cachedir",
+        verbose=True,
+    )
+    cloned = clone(pipe)
+    assert cloned.memory == "cachedir"
+    assert cloned.verbose is True
+    cloned.set_params(verbose=False)
+    assert cloned.verbose is False
+
+
+def test_text_embedder_drop_original_conflicts_with_later_columns():
+    from sklplus.preprocessing import TextEmbedder
+
+    steps = [
+        ("text", TextEmbedder(columns=["review"], drop_original=True)),
+        ("later", _NamedColumns(columns=["review"])),
+        ("clf", _clf()),
+    ]
+    with pytest.raises(ColumnDependencyError, match="review"):
+        validate_pipeline_steps(steps, kind="sklearn")
 
 
 def test_imbpipeline_check_conflicts_false():
