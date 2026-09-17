@@ -57,4 +57,19 @@ PUBLIC_SYMBOLS: list[tuple[str, str]] = [
     ("sklearnplus.ensemble", "VotingClassifier"),
     ("sklearnplus.ensemble", "VotingRegressor"),
     ("sklearnplus.ensemble", "CalibratedClassifierCV"),
+
+    # boosting dual-path (dedicated modules)
+    ("sklearnplus.xgboost", "XGBClassifier"),
+    ("sklearnplus.xgboost", "XGBRegressor"),
+    ("sklearnplus.lightgbm", "LGBMClassifier"),
+    ("sklearnplus.lightgbm", "LGBMRegressor"),
+    ("sklearnplus.catboost", "CatBoostClassifier"),
+    ("sklearnplus.catboost", "CatBoostRegressor"),
+    # boosting also via ensemble
+    ("sklearnplus.ensemble", "XGBClassifier"),
+    ("sklearnplus.ensemble", "XGBRegressor"),
+    ("sklearnplus.ensemble", "LGBMClassifier"),
+    ("sklearnplus.ensemble", "LGBMRegressor"),
+    ("sklearnplus.ensemble", "CatBoostClassifier"),
+    ("sklearnplus.ensemble", "CatBoostRegressor"),
 ]
