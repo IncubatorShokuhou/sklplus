@@ -53,6 +53,17 @@ def test_index_html_exists_and_is_chinese_landing():
     assert "pip install sklplus" in html
     for symbol in ("Pipeline", "StandardScaler", "RandomForestClassifier"):
         assert symbol in html
+    assert "pipe.fit" in html
+    assert "pipe.score" in html
+    for extra in (
+        "CleanColumnNames",
+        "RareCategoryGrouper",
+        "SMOTE",
+        "IForest",
+        "ImbPipeline",
+        "ColumnTransformer",
+    ):
+        assert extra not in html
     assert PYPI_URL in html
     assert GITHUB_URL in html
     assert WIKI_URL in html

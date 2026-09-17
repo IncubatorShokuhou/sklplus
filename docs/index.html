@@ -43,7 +43,8 @@ pipe = Pipeline(
     ]
 )
 pipe.fit(X, y)
-print(pipe.score(X, y))</code></pre>
+score = pipe.score(X, y)
+print(f"classification accuracy: {score:.4f}")</code></pre>
 
       <p>
         表格分类、回归、聚类、异常。v0.1 不做时序 / NLP 专题。要 PyCaret
