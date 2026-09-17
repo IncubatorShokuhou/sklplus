@@ -35,6 +35,7 @@ def test_pipeline_conflicts_example_prints_conflict_messages():
         cwd=ROOT,
         capture_output=True,
         text=True,
+        encoding="utf-8",
         check=False,
     )
     combined = f"{proc.stdout}\n{proc.stderr}"
@@ -46,5 +47,11 @@ def test_pipeline_conflicts_example_prints_conflict_messages():
         "ColumnDependencyError",
     ):
         assert needle in combined, f"missing {needle} in:\n{combined}"
-    for fragment in ("SMOTE", "scaler", "RemoveMulticollinearity", "imputer"):
+    for fragment in (
+        "SMOTE",
+        "consecutive global scalers",
+        "RemoveMulticollinearity",
+        "consecutive imputers",
+        "column(s) ['a']",
+    ):
         assert fragment in combined, f"missing {fragment} in:\n{combined}"

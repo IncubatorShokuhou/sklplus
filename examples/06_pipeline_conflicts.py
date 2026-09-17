@@ -107,6 +107,7 @@ def main() -> int:
                     "grp",
                     GroupFeatures(groups={"g": ["a", "b"]}, drop_original=True),
                 ),
+                # TextEmbedder.columns names a source column that GroupFeatures dropped.
                 ("later", TextEmbedder(columns=["a"])),
                 ("clf", _clf()),
             ]
