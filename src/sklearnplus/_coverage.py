@@ -72,4 +72,15 @@ PUBLIC_SYMBOLS: list[tuple[str, str]] = [
     ("sklearnplus.ensemble", "LGBMRegressor"),
     ("sklearnplus.ensemble", "CatBoostClassifier"),
     ("sklearnplus.ensemble", "CatBoostRegressor"),
+
+    # cluster + kmodes
+    ("sklearnplus.cluster", "KMeans"),
+    ("sklearnplus.cluster", "AffinityPropagation"),
+    ("sklearnplus.cluster", "MeanShift"),
+    ("sklearnplus.cluster", "SpectralClustering"),
+    ("sklearnplus.cluster", "AgglomerativeClustering"),
+    ("sklearnplus.cluster", "DBSCAN"),
+    ("sklearnplus.cluster", "OPTICS"),
+    ("sklearnplus.cluster", "Birch"),
+    ("sklearnplus.cluster", "KModes"),
 ]

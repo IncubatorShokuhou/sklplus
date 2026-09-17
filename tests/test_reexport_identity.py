@@ -54,3 +54,15 @@ IDENTITY_SAMPLES = [
 @pytest.mark.parametrize("sp_mod,sk_mod,name", IDENTITY_SAMPLES, ids=[t[2] for t in IDENTITY_SAMPLES])
 def test_reexport_identity(sp_mod, sk_mod, name):
     assert getattr(sp_mod, name) is getattr(sk_mod, name)
+
+
+def test_kmeans_is_sklearn():
+    from sklearn.cluster import KMeans as sk_km
+    from sklearnplus.cluster import KMeans as sp_km
+    assert sp_km is sk_km
+
+
+def test_kmodes_importable():
+    from sklearnplus.cluster import KModes
+    from kmodes.kmodes import KModes as upstream
+    assert KModes is upstream
