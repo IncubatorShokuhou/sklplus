@@ -1,5 +1,7 @@
 from sklearn.preprocessing import (
     FunctionTransformer,
+    KBinsDiscretizer,
+    LabelEncoder,
     MaxAbsScaler,
     MinMaxScaler,
     Normalizer,
@@ -22,6 +24,8 @@ __all__ = [
     "CleanColumnNames",
     "DateFeatureExtractor",
     "FunctionTransformer",
+    "KBinsDiscretizer",
+    "LabelEncoder",
     "MaxAbsScaler",
     "MinMaxScaler",
     "Normalizer",

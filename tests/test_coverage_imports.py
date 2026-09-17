@@ -12,3 +12,9 @@ def test_version():
 def test_public_symbol_importable(module_path, attr):
     mod = importlib.import_module(module_path)
     assert hasattr(mod, attr), f"{module_path} missing {attr}"
+
+
+def test_no_get_model():
+    import sklearnplus
+
+    assert not hasattr(sklearnplus, "get_model")

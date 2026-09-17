@@ -1,5 +1,6 @@
 from sklearn.metrics import (
     accuracy_score,
+    make_scorer,
     cohen_kappa_score,
     f1_score,
     matthews_corrcoef,
@@ -14,6 +15,7 @@ from sklearn.metrics import (
 
 __all__ = [
     "accuracy_score",
+    "make_scorer",
     "cohen_kappa_score",
     "f1_score",
     "matthews_corrcoef",

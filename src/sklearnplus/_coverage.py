@@ -176,4 +176,10 @@ PUBLIC_SYMBOLS: list[tuple[str, str]] = [
     ("sklearnplus.preprocessing", "DateFeatureExtractor"),
     ("sklearnplus.preprocessing", "RareCategoryGrouper"),
     ("sklearnplus.preprocessing", "TargetLabelEncoder"),
+
+    ("sklearnplus.preprocessing", "KBinsDiscretizer"),
+    ("sklearnplus.preprocessing", "LabelEncoder"),
+    ("sklearnplus.feature_extraction", "CountVectorizer"),
+    ("sklearnplus.feature_extraction", "TfidfVectorizer"),
+    ("sklearnplus.metrics", "make_scorer"),
 ]
