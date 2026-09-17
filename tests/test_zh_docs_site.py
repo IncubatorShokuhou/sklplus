@@ -87,8 +87,8 @@ def test_pages_workflow_deploys_docs_via_official_actions():
     text = WORKFLOW.read_text(encoding="utf-8")
     assert "actions/upload-pages-artifact" in text
     assert "actions/deploy-pages" in text
-        assert "path: docs" in text or "path: 'docs'" in text or 'path: "docs"' in text
-        assert "include-hidden-files: true" in text
+    assert "path: docs" in text or "path: 'docs'" in text or 'path: "docs"' in text
+    assert "include-hidden-files: true" in text
     assert "pages: write" in text
     assert "id-token: write" in text
     assert "publish-to-pypi.yml" not in text
