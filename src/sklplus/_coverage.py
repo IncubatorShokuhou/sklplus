@@ -124,6 +124,14 @@ PUBLIC_SYMBOLS: list[tuple[str, str]] = [
     ("sklplus.pipeline", "Pipeline"),
     ("sklplus.pipeline", "make_pipeline"),
     ("sklplus.pipeline", "ImbPipeline"),
+    ("sklplus.pipeline", "validate_pipeline_steps"),
+    # exceptions
+    ("sklplus.exceptions", "SklplusError"),
+    ("sklplus.exceptions", "PipelineConfigurationError"),
+    ("sklplus.exceptions", "PipelineKindError"),
+    ("sklplus.exceptions", "StepConflictError"),
+    ("sklplus.exceptions", "ColumnDependencyError"),
+    ("sklplus.exceptions", "PipelineConflictWarning"),
     # compose
     ("sklplus.compose", "ColumnTransformer"),
     ("sklplus.compose", "make_column_transformer"),

@@ -62,9 +62,11 @@ from sklplus.xgboost import XGBClassifier as B
 assert A is B
 ```
 
-### 重采样
+### 重采样与 Pipeline 检查
 
-步骤里有 `fit_resample`（例如 `SMOTE`）时用 `ImbPipeline`。普通 `Pipeline` 仍是 sklearn 那份。
+步骤里有 `fit_resample`（例如 `SMOTE`、`RemoveOutliers`）时用 `ImbPipeline`。
+
+`sklplus.pipeline.Pipeline` 是 sklearn `Pipeline` 的薄子类，因此 `sklplus.pipeline.Pipeline is sklearn.pipeline.Pipeline` 为 False。构造默认 `check_conflicts=True`。`make_pipeline` 走这份包装。可传 `check_conflicts=False` 关闭，或直接调用 `validate_pipeline_steps(steps, *, kind)`。
 
 ## 示例
 

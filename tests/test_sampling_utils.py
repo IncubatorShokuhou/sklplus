@@ -30,13 +30,18 @@ def test_imbpipeline_smote_logistic():
     assert pred.shape == (len(y),)
 
 
-def test_pipeline_make_pipeline_identity():
+def test_pipeline_make_pipeline_is_thin_wrap_not_identity():
+    from imblearn.pipeline import Pipeline as ImblearnPipeline
     from sklearn.pipeline import Pipeline as SkPipeline
     from sklearn.pipeline import make_pipeline as sk_make_pipeline
-    from sklplus.pipeline import Pipeline, make_pipeline
 
-    assert Pipeline is SkPipeline
-    assert make_pipeline is sk_make_pipeline
+    from sklplus.pipeline import ImbPipeline, Pipeline, make_pipeline
+
+    assert Pipeline is not SkPipeline
+    assert make_pipeline is not sk_make_pipeline
+    assert ImbPipeline is not ImblearnPipeline
+    assert issubclass(Pipeline, SkPipeline)
+    assert issubclass(ImbPipeline, ImblearnPipeline)
 
 
 def test_compose_impute_metrics_samples():
