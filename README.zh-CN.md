@@ -2,37 +2,31 @@
 
 [English README](README.md)
 
-面向表格机器学习的 **大号 sklearn**：按 sklearn 风格路径再导出常用估计器，并在生态缺口处提供薄适配与少量自写预处理器。
+sklearnplus 0.1.0 是一层薄的表格估计器聚合包。多数符号是再导出（常常与上游是同一对象）；少量适配器和自写预处理器用来补我们手拼 `Pipeline` 时缺的那几块。
 
-这是 **组件库**，不是 AutoML。**没有** `get_model`、`setup` 或按字符串 ID 取模型的工厂——直接 import 类，自己拼 `Pipeline`。
+面向需要 `from sklearnplus.… import …`、按标准 `fit` / `transform` / `predict` 组合流水线的人。不是 AutoML：没有 `get_model`、没有 `setup()`、也没有按字符串 ID 取模型的工厂。
 
-默认安装即包含 boosting（xgboost / lightgbm / catboost）、imbalanced-learn、pyod、kmodes、category-encoders、feature-engine，清单内 import 开箱可用。
+**适用：** 表格上的分类、回归、聚类、异常检测，以及预处理 / 采样 / 特征选择 / 搜索 / 指标等按 sklearn 风格路径再导出的辅助符号。
+
+**不适用（v0.1）：** 时序、NLP 专题模块。若你要的是 PyCaret 那种实验会话 API，请用别的工具。
+
+## 依赖
+
+- Python `>=3.10`
+- `scikit-learn>=1.3`
+- 默认安装还会带上：`numpy`、`pandas`、`scipy`、`joblib`、`xgboost`、`lightgbm`、`catboost`、`imbalanced-learn`、`pyod`、`kmodes`、`category-encoders`、`feature-engine`
 
 ## 安装
+
+在克隆目录里可编辑安装：
 
 ```bash
 pip install -e ".[dev]"
 ```
 
-## 设计理念
+`[dev]` 额外安装 `pytest>=7` 和 `ruff`。
 
-| 做 | 不做 |
-|----|------|
-| `from sklearnplus.ensemble import RandomForestClassifier` | `get_model("rf")` |
-| 组合 `Pipeline` / `ImbPipeline` | 全局 `setup()` 会话状态 |
-| 再导出时与上游是同一对象 | 改变算法语义的厚包装 |
-
-## Boosting 双路径
-
-XGBoost / LightGBM / CatBoost 可从 `sklearnplus.ensemble` 与独立子模块导入——**同一类对象**：
-
-```python
-from sklearnplus.ensemble import XGBClassifier as A
-from sklearnplus.xgboost import XGBClassifier as B
-assert A is B
-```
-
-## 示例 import
+## 最小用法
 
 ```python
 from sklearnplus.linear_model import LogisticRegression, Ridge
@@ -50,9 +44,25 @@ from sklearnplus.pipeline import Pipeline, ImbPipeline
 from sklearnplus.compose import ColumnTransformer
 ```
 
-## 可运行示例
+再导出在能做到时与上游保持同一对象，例如 `sklearnplus.ensemble.RandomForestClassifier is sklearn.ensemble.RandomForestClassifier`。
 
-见 [`examples/`](examples/)：
+### Boosting 的两条 import 路径
+
+`XGBClassifier` / `LGBMClassifier` / `CatBoostClassifier`（以及对应的 Regressor）同时出现在 `sklearnplus.ensemble` 与 `sklearnplus.xgboost` / `lightgbm` / `catboost`。它们是同一个类对象：
+
+```python
+from sklearnplus.ensemble import XGBClassifier as A
+from sklearnplus.xgboost import XGBClassifier as B
+assert A is B
+```
+
+### 重采样
+
+步骤里有 `fit_resample`（例如 `SMOTE`）时用 `ImbPipeline`。普通 `Pipeline` 仍是 sklearn 那份。
+
+## 示例
+
+[`examples/`](examples/) 下的脚本：
 
 | 脚本 | 内容 |
 |------|------|
@@ -60,22 +70,27 @@ from sklearnplus.compose import ColumnTransformer
 | `02_imbalanced_imbpipeline.py` | `ImbPipeline` + SMOTE + 逻辑回归 |
 | `03_boosting_dual_path.py` | 双路径同一性 + 小规模 XGB 拟合 |
 | `04_preprocessing_p0.py` | P0 自写变换器（DataFrame） |
-| `05_anomaly_iforest.py` | 标准化 + `IForest` 异常检测 |
+| `05_anomaly_iforest.py` | 标准化 + `IForest` |
 
 ```bash
 python examples/01_classification_pipeline.py
 ```
 
-## 范围（v0.1）
+## 0.1.0 里的自写预处理
 
-- 分类、回归、聚类、异常检测
-- 预处理 / 采样 / 特征选择 / 搜索 / 指标辅助
-- P0 自写：`CleanColumnNames`、`DateFeatureExtractor`、`RareCategoryGrouper`、`TargetLabelEncoder`
+在 `sklearnplus.preprocessing`（与再导出的 scaler/encoder 一起）：
 
-**不在 v0.1：** 时序、NLP 专题模块。
+- `CleanColumnNames`
+- `DateFeatureExtractor`
+- `RareCategoryGrouper`
+- `TargetLabelEncoder`
 
-## 延后（P1）
+`sklearnplus.anomaly` 下是对 pyod 的薄包装（`IForest`、`LOF` 等），以便放进 sklearn `Pipeline`。
 
-`GroupFeatures`、`RemoveMulticollinearity`、`RemoveOutliers`、
-`IterativeImputerPlus`、`TextEmbedder`；Optuna/skopt 封装；更完整的
-`check_estimator`；文档站点。
+## 已知缺口
+
+尚未实现（设计里叫 P1）：`GroupFeatures`、`RemoveMulticollinearity`、`RemoveOutliers`、`IterativeImputerPlus`、`TextEmbedder`；Optuna/skopt 搜索封装；更完整的 `check_estimator`；文档站点。
+
+许可证：TODO（`pyproject.toml` 里尚未声明）。
+
+贡献方式：TODO。
