@@ -62,9 +62,11 @@ from sklplus.xgboost import XGBClassifier as B
 assert A is B
 ```
 
-### Resampling
+### Resampling and pipeline checks
 
-Use `ImbPipeline` when a step calls `fit_resample` (e.g. `SMOTE`). Plain `Pipeline` is the sklearn one.
+Use `ImbPipeline` when a step calls `fit_resample` (e.g. `SMOTE`, `RemoveOutliers`).
+
+`sklplus.pipeline.Pipeline` is a thin subclass of sklearn's Pipeline, so `sklplus.pipeline.Pipeline is sklearn.pipeline.Pipeline` is False. Construction defaults to `check_conflicts=True`. `make_pipeline` builds this wrapper. Disable with `check_conflicts=False`, or call `validate_pipeline_steps(steps, *, kind)` directly.
 
 ## Examples
 
