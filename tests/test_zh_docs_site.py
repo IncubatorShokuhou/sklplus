@@ -170,7 +170,7 @@ def test_wiki_source_pages_cover_required_topics():
         assert name in prep
 
     examples = (WIKI / "示例索引.md").read_text(encoding="utf-8")
-    for i in range(1, 6):
+    for i in range(1, 7):
         assert f"0{i}_" in examples
     assert "最小可跑示例" in examples
     assert "P0" not in examples
