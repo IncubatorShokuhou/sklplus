@@ -86,16 +86,27 @@ python examples/01_classification_pipeline.py
 
 These live in `sklplus.preprocessing` (alongside re-exported scalers/encoders):
 
+**P0**
+
 - `CleanColumnNames`
 - `DateFeatureExtractor`
 - `RareCategoryGrouper`
 - `TargetLabelEncoder`
 
+**P1**
+
+- `GroupFeatures` — row-wise aggregates over named column groups
+- `RemoveMulticollinearity` — drop highly correlated numeric features (optional prefer-by-`y`)
+- `IterativeImputerPlus` — `IterativeImputer` for numeric + most-frequent for categoricals
+- `TextEmbedder` — BoW / TF-IDF on text columns, concatenated back
+
+**Sampling (not preprocessing):** `RemoveOutliers` in `sklplus.sampling` is an imblearn-style sampler (`fit_resample`) for train-only outlier row drops — use with `ImbPipeline`.
+
 Anomaly detectors under `sklplus.anomaly` are thin wrappers around pyod (`IForest`, `LOF`, …) so they can sit in a sklearn `Pipeline`.
 
 ## Known gaps
 
-Not implemented yet (called P1 in the design notes): `GroupFeatures`, `RemoveMulticollinearity`, `RemoveOutliers`, `IterativeImputerPlus`, `TextEmbedder`; Optuna/skopt search wrappers; broader `check_estimator` coverage; a docs site.
+Still open: Optuna/skopt search wrappers; broader `check_estimator` coverage; a docs site. P1 custom preprocessors / `RemoveOutliers` sampler are implemented.
 
 License: TODO (not declared in `pyproject.toml` yet).
 

@@ -22,6 +22,8 @@ from imblearn.under_sampling import (
     TomekLinks,
 )
 
+from sklplus.sampling._remove_outliers import RemoveOutliers
+
 __all__ = [
     "ADASYN",
     "AllKNN",
@@ -35,6 +37,7 @@ __all__ = [
     "OneSidedSelection",
     "RandomOverSampler",
     "RandomUnderSampler",
+    "RemoveOutliers",
     "RepeatedEditedNearestNeighbours",
     "SMOTE",
     "SMOTEENN",

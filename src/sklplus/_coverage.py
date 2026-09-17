@@ -119,6 +119,7 @@ PUBLIC_SYMBOLS: list[tuple[str, str]] = [
     ("sklplus.sampling", "InstanceHardnessThreshold"),
     ("sklplus.sampling", "SMOTEENN"),
     ("sklplus.sampling", "SMOTETomek"),
+    ("sklplus.sampling", "RemoveOutliers"),
     # pipeline
     ("sklplus.pipeline", "Pipeline"),
     ("sklplus.pipeline", "make_pipeline"),
@@ -176,6 +177,11 @@ PUBLIC_SYMBOLS: list[tuple[str, str]] = [
     ("sklplus.preprocessing", "DateFeatureExtractor"),
     ("sklplus.preprocessing", "RareCategoryGrouper"),
     ("sklplus.preprocessing", "TargetLabelEncoder"),
+    # preprocessing P1 custom
+    ("sklplus.preprocessing", "GroupFeatures"),
+    ("sklplus.preprocessing", "RemoveMulticollinearity"),
+    ("sklplus.preprocessing", "IterativeImputerPlus"),
+    ("sklplus.preprocessing", "TextEmbedder"),
 
     ("sklplus.preprocessing", "KBinsDiscretizer"),
     ("sklplus.preprocessing", "LabelEncoder"),

@@ -86,16 +86,27 @@ python examples/01_classification_pipeline.py
 
 在 `sklplus.preprocessing`（与再导出的 scaler/encoder 一起）：
 
+**P0**
+
 - `CleanColumnNames`
 - `DateFeatureExtractor`
 - `RareCategoryGrouper`
 - `TargetLabelEncoder`
 
+**P1**
+
+- `GroupFeatures` — 按列组做行内聚合统计
+- `RemoveMulticollinearity` — 去掉高相关数值特征（可选按与 `y` 的相关保留）
+- `IterativeImputerPlus` — 数值用 `IterativeImputer`，类别用众数
+- `TextEmbedder` — 文本列 BoW / TF-IDF 后拼回
+
+**采样（不在 preprocessing）：** `sklplus.sampling.RemoveOutliers` 是 imblearn 风格采样器（`fit_resample`），只在训练集去异常行 —— 请配合 `ImbPipeline`。
+
 `sklplus.anomaly` 下是对 pyod 的薄包装（`IForest`、`LOF` 等），以便放进 sklearn `Pipeline`。
 
 ## 已知缺口
 
-尚未实现（设计里叫 P1）：`GroupFeatures`、`RemoveMulticollinearity`、`RemoveOutliers`、`IterativeImputerPlus`、`TextEmbedder`；Optuna/skopt 搜索封装；更完整的 `check_estimator`；文档站点。
+仍缺：Optuna/skopt 搜索封装；更完整的 `check_estimator`；文档站点。P1 自写预处理 / `RemoveOutliers` 采样器已实现。
 
 许可证：TODO（`pyproject.toml` 里尚未声明）。
 
