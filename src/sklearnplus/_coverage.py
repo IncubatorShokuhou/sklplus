@@ -83,4 +83,18 @@ PUBLIC_SYMBOLS: list[tuple[str, str]] = [
     ("sklearnplus.cluster", "OPTICS"),
     ("sklearnplus.cluster", "Birch"),
     ("sklearnplus.cluster", "KModes"),
+
+    # anomaly (pyod adapters)
+    ("sklearnplus.anomaly", "ABOD"),
+    ("sklearnplus.anomaly", "CBLOF"),
+    ("sklearnplus.anomaly", "COF"),
+    ("sklearnplus.anomaly", "IForest"),
+    ("sklearnplus.anomaly", "HBOS"),
+    ("sklearnplus.anomaly", "KNN"),
+    ("sklearnplus.anomaly", "LOF"),
+    ("sklearnplus.anomaly", "OCSVM"),
+    ("sklearnplus.anomaly", "PCA"),
+    ("sklearnplus.anomaly", "MCD"),
+    ("sklearnplus.anomaly", "SOD"),
+    ("sklearnplus.anomaly", "SOS"),
 ]
