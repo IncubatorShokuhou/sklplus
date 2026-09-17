@@ -20,7 +20,11 @@ sklplus 0.1.0 是一层薄的表格估计器聚合包。多数符号是再导出
 
 PyPI / import / GitHub 仓库名均为 **`sklplus`**（https://github.com/IncubatorShokuhou/sklplus）。
 
-在克隆目录里可编辑安装：
+```bash
+pip install sklplus
+```
+
+从克隆目录可编辑安装（含测试工具）：
 
 ```bash
 pip install -e ".[dev]"

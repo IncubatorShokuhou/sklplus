@@ -20,7 +20,11 @@ It is for people who want `from sklplus.… import …` and standard `fit` / `tr
 
 PyPI / import / GitHub repo name: **`sklplus`** (https://github.com/IncubatorShokuhou/sklplus).
 
-Editable (from a clone):
+```bash
+pip install sklplus
+```
+
+From a clone (editable, with test tools):
 
 ```bash
 pip install -e ".[dev]"
