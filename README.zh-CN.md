@@ -79,6 +79,7 @@ assert A is B
 | `03_boosting_dual_path.py` | 双路径同一性 + 小规模 XGB 拟合 |
 | `04_preprocessing_p0.py` | P0 自写变换器（DataFrame） |
 | `05_anomaly_iforest.py` | 标准化 + `IForest` |
+| `06_pipeline_conflicts.py` | Pipeline 冲突检查：硬错误与软警告 |
 
 ```bash
 python examples/01_classification_pipeline.py

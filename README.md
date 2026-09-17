@@ -79,6 +79,7 @@ Scripts under [`examples/`](examples/):
 | `03_boosting_dual_path.py` | Dual-path identity + small XGB fit |
 | `04_preprocessing_p0.py` | P0 custom transformers on a DataFrame |
 | `05_anomaly_iforest.py` | Scaler + `IForest` |
+| `06_pipeline_conflicts.py` | Pipeline conflict checks: errors and warnings |
 
 ```bash
 python examples/01_classification_pipeline.py
