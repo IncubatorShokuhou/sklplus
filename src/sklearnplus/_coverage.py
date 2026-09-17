@@ -157,4 +157,23 @@ PUBLIC_SYMBOLS: list[tuple[str, str]] = [
     ("sklearnplus.metrics", "mean_squared_error"),
     ("sklearnplus.metrics", "r2_score"),
     ("sklearnplus.metrics", "silhouette_score"),
+
+    # preprocessing re-exports
+    ("sklearnplus.preprocessing", "StandardScaler"),
+    ("sklearnplus.preprocessing", "MinMaxScaler"),
+    ("sklearnplus.preprocessing", "MaxAbsScaler"),
+    ("sklearnplus.preprocessing", "RobustScaler"),
+    ("sklearnplus.preprocessing", "PowerTransformer"),
+    ("sklearnplus.preprocessing", "QuantileTransformer"),
+    ("sklearnplus.preprocessing", "OneHotEncoder"),
+    ("sklearnplus.preprocessing", "OrdinalEncoder"),
+    ("sklearnplus.preprocessing", "PolynomialFeatures"),
+    ("sklearnplus.preprocessing", "Normalizer"),
+    ("sklearnplus.preprocessing", "FunctionTransformer"),
+    ("sklearnplus.preprocessing", "TargetEncoder"),
+    # preprocessing P0 custom
+    ("sklearnplus.preprocessing", "CleanColumnNames"),
+    ("sklearnplus.preprocessing", "DateFeatureExtractor"),
+    ("sklearnplus.preprocessing", "RareCategoryGrouper"),
+    ("sklearnplus.preprocessing", "TargetLabelEncoder"),
 ]
