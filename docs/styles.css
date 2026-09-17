@@ -23,7 +23,7 @@ body {
   font-family: "Noto Sans SC", "Source Han Sans SC", "PingFang SC",
     "Microsoft YaHei", system-ui, sans-serif;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.65;
 }
 
 main {
@@ -33,31 +33,19 @@ main {
 }
 
 h1 {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.5rem;
   font-size: 1.85rem;
   font-weight: 650;
-  letter-spacing: 0.01em;
 }
 
 h2 {
-  margin: 2rem 0 0.6rem;
-  font-size: 1.2rem;
+  margin: 1.75rem 0 0.55rem;
+  font-size: 1.15rem;
   font-weight: 650;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0.25rem;
 }
 
-p,
-ul {
-  margin: 0.65rem 0;
-}
-
-ul {
-  padding-left: 1.3rem;
-}
-
-li + li {
-  margin-top: 0.2rem;
+p {
+  margin: 0.55rem 0;
 }
 
 a {
@@ -69,19 +57,9 @@ a:hover {
   text-decoration: underline;
 }
 
-.meta,
 .links {
   color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1rem;
-  margin: 0.75rem 0 1.25rem;
-  padding: 0;
-  list-style: none;
+  margin: 0.85rem 0 1.1rem;
 }
 
 code,
@@ -108,12 +86,4 @@ pre {
 pre code {
   background: none;
   padding: 0;
-}
-
-.foot {
-  margin-top: 2.5rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 0.9rem;
 }
