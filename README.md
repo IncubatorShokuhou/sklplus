@@ -1,6 +1,6 @@
 # sklplus
 
-[中文文档](README.zh-CN.md)
+[中文文档](README.zh-CN.md) · [中文项目页](https://incubatorshokuhou.github.io/sklplus/) · [Wiki](https://github.com/IncubatorShokuhou/sklplus/wiki)
 
 sklplus 0.1.1 is a thin umbrella around scikit-learn-style tabular estimators. Most symbols are re-exports (often the same object as upstream). A few adapters and custom preprocessors fill gaps we care about when building `Pipeline`s by hand.
 
@@ -106,7 +106,7 @@ Anomaly detectors under `sklplus.anomaly` are thin wrappers around pyod (`IFores
 
 ## Known gaps
 
-Still open: Optuna/skopt search wrappers; broader `check_estimator` coverage; a docs site. P1 custom preprocessors / `RemoveOutliers` sampler are implemented.
+Still open: Optuna/skopt search wrappers; broader `check_estimator` coverage. P1 custom preprocessors / `RemoveOutliers` sampler are implemented.
 
 License: MIT (see `LICENSE`).
 
