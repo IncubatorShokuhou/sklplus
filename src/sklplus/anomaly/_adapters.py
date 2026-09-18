@@ -7,18 +7,23 @@ from typing import Any
 
 from sklearn.base import BaseEstimator, OutlierMixin
 
-import pyod.models.abod as pyod_abod
-import pyod.models.cblof as pyod_cblof
-import pyod.models.cof as pyod_cof
-import pyod.models.hbos as pyod_hbos
-import pyod.models.iforest as pyod_iforest
-import pyod.models.knn as pyod_knn
-import pyod.models.lof as pyod_lof
-import pyod.models.mcd as pyod_mcd
-import pyod.models.ocsvm as pyod_ocsvm
-import pyod.models.pca as pyod_pca
-import pyod.models.sod as pyod_sod
-import pyod.models.sos as pyod_sos
+try:
+    import pyod.models.abod as pyod_abod
+    import pyod.models.cblof as pyod_cblof
+    import pyod.models.cof as pyod_cof
+    import pyod.models.hbos as pyod_hbos
+    import pyod.models.iforest as pyod_iforest
+    import pyod.models.knn as pyod_knn
+    import pyod.models.lof as pyod_lof
+    import pyod.models.mcd as pyod_mcd
+    import pyod.models.ocsvm as pyod_ocsvm
+    import pyod.models.pca as pyod_pca
+    import pyod.models.sod as pyod_sod
+    import pyod.models.sos as pyod_sos
+except ImportError as exc:
+    from sklplus._optional import missing_extra_error
+
+    raise missing_extra_error("pyod", "anomaly") from exc
 
 
 def _init_signature(detector_cls: type) -> inspect.Signature:

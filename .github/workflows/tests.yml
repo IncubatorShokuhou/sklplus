@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   pytest:
-    name: pytest (Python ${{ matrix.python-version }})
+    name: pytest full (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -29,8 +29,55 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install package (editable + dev)
-        run: python -m pip install --upgrade pip && pip install -e ".[dev]"
+      - name: Install package (editable + dev + all extras)
+        run: python -m pip install --upgrade pip && pip install -e ".[dev,all]"
 
       - name: Run pytest
         run: pytest
+
+  pytest-core:
+    name: pytest core-only (Python 3.12)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package (editable + dev, no optional extras)
+        run: python -m pip install --upgrade pip && pip install -e ".[dev]"
+
+      - name: Core import smoke (no boost / imblearn / anomaly / extra)
+        run: |
+          python - <<'PY'
+          import sklplus
+          assert sklplus.__version__ == "0.2.0"
+          from sklplus.classification import LogisticRegression, RandomForestClassifier
+          from sklplus.regression import Ridge
+          from sklplus.ensemble import GradientBoostingClassifier
+          from sklplus.preprocessing import StandardScaler, CleanColumnNames
+          from sklplus.pipeline import Pipeline
+          from sklplus.sampling import RemoveOutliers
+          print("core imports ok")
+          PY
+
+      - name: Optional extras raise clear ImportError
+        run: |
+          python - <<'PY'
+          import pytest
+
+          def expect(extra_token, fn):
+              with pytest.raises(ImportError) as ei:
+                  fn()
+              msg = str(ei.value)
+              assert f"sklplus[{extra_token}]" in msg, msg
+
+          expect("boost", lambda: __import__("sklplus.xgboost", fromlist=["XGBClassifier"]))
+          expect("boost", lambda: __import__("sklplus.lightgbm", fromlist=["LGBMClassifier"]))
+          expect("boost", lambda: __import__("sklplus.catboost", fromlist=["CatBoostClassifier"]))
+          expect("anomaly", lambda: __import__("sklplus.anomaly", fromlist=["IForest"]))
+          expect("imblearn", lambda: __import__("sklplus.sampling", fromlist=["SMOTE"]).SMOTE)
+          expect("extra", lambda: __import__("sklplus.cluster", fromlist=["KModes"]).KModes)
+          print("optional ImportError messages ok")
+          PY

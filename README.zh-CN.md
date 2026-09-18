@@ -2,7 +2,7 @@
 
 [English README](README.md) · [中文项目页](https://incubatorshokuhou.github.io/sklplus/) · [Wiki](https://github.com/IncubatorShokuhou/sklplus/wiki)
 
-sklplus 0.1.2 是一层薄的表格估计器聚合包。多数符号是再导出（常常与上游是同一对象）；少量适配器和自写预处理器用来补我们手拼 `Pipeline` 时缺的那几块。
+sklplus 0.2.0 是一层薄的表格估计器聚合包。多数符号是再导出（常常与上游是同一对象）；少量适配器和自写预处理器用来补我们手拼 `Pipeline` 时缺的那几块。
 
 面向需要 `from sklplus.… import …`、按标准 `fit` / `transform` / `predict` 组合流水线的人。不是 AutoML：没有 `get_model`、没有 `setup()`、也没有按字符串 ID 取模型的工厂。
 
@@ -13,8 +13,14 @@ sklplus 0.1.2 是一层薄的表格估计器聚合包。多数符号是再导出
 ## 依赖
 
 - Python `>=3.10`
-- `scikit-learn>=1.3`
-- 默认安装还会带上：`numpy`、`pandas`、`scipy`、`joblib`、`xgboost`、`lightgbm`、`catboost`、`imbalanced-learn`、`pyod`、`kmodes`、`category-encoders`、`feature-engine`
+- 默认安装：`scikit-learn>=1.3`、`numpy`、`pandas`、`scipy`、`joblib`
+- 可选 extras：
+  - `[boost]`：`xgboost`、`lightgbm`、`catboost`
+  - `[imblearn]`：`imbalanced-learn`
+  - `[anomaly]`：`pyod`
+  - `[extra]`：`kmodes`、`category-encoders`、`feature-engine`
+  - `[all]`：以上并集
+  - `[dev]`：`pytest>=7`、`ruff`
 
 ## 安装
 
@@ -22,15 +28,19 @@ PyPI / import / GitHub 仓库名均为 **`sklplus`**（https://github.com/Incuba
 
 ```bash
 pip install sklplus
+# 需要 boosting 库时
+pip install "sklplus[boost]"
+# 以前默认捆绑的全部可选依赖
+pip install "sklplus[all]"
 ```
 
-从克隆目录可编辑安装（含测试工具）：
+从克隆目录可编辑安装（含测试工具与全部 extras）：
 
 ```bash
-pip install -e ".[dev]"
+pip install -e ".[dev,all]"
 ```
 
-`[dev]` 额外安装 `pytest>=7` 和 `ruff`。
+缺少可选包时会抛出 `ImportError`，并提示对应 extra（例如 `pip install "sklplus[boost]"`）。
 
 ## 最小用法
 

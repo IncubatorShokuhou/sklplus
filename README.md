@@ -2,7 +2,7 @@
 
 [中文文档](README.zh-CN.md) · [中文项目页](https://incubatorshokuhou.github.io/sklplus/) · [Wiki](https://github.com/IncubatorShokuhou/sklplus/wiki)
 
-sklplus 0.1.2 is a thin umbrella around scikit-learn-style tabular estimators. Most symbols are re-exports (often the same object as upstream). A few adapters and custom preprocessors fill gaps we care about when building `Pipeline`s by hand.
+sklplus 0.2.0 is a thin umbrella around scikit-learn-style tabular estimators. Most symbols are re-exports (often the same object as upstream). A few adapters and custom preprocessors fill gaps we care about when building `Pipeline`s by hand.
 
 It is for people who want `from sklplus.… import …` and standard `fit` / `transform` / `predict` composition. It is not AutoML: there is no `get_model`, no `setup()`, and no string-ID model factory.
 
@@ -13,8 +13,14 @@ It is for people who want `from sklplus.… import …` and standard `fit` / `tr
 ## Requirements
 
 - Python `>=3.10`
-- `scikit-learn>=1.3`
-- Default install also pulls: `numpy`, `pandas`, `scipy`, `joblib`, `xgboost`, `lightgbm`, `catboost`, `imbalanced-learn`, `pyod`, `kmodes`, `category-encoders`, `feature-engine`
+- Default install: `scikit-learn>=1.3`, `numpy`, `pandas`, `scipy`, `joblib`
+- Optional extras:
+  - `[boost]`: `xgboost`, `lightgbm`, `catboost`
+  - `[imblearn]`: `imbalanced-learn`
+  - `[anomaly]`: `pyod`
+  - `[extra]`: `kmodes`, `category-encoders`, `feature-engine`
+  - `[all]`: union of the above
+  - `[dev]`: `pytest>=7`, `ruff`
 
 ## Install
 
@@ -22,15 +28,19 @@ PyPI / import / GitHub repo name: **`sklplus`** (https://github.com/IncubatorSho
 
 ```bash
 pip install sklplus
+# with boosting libs
+pip install "sklplus[boost]"
+# everything formerly bundled by default
+pip install "sklplus[all]"
 ```
 
-From a clone (editable, with test tools):
+From a clone (editable, with test tools and full extras):
 
 ```bash
-pip install -e ".[dev]"
+pip install -e ".[dev,all]"
 ```
 
-`[dev]` adds `pytest>=7` and `ruff`.
+Missing optional packages raise `ImportError` naming the extra (e.g. `pip install "sklplus[boost]"`).
 
 ## Minimal usage
 
