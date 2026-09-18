@@ -15,7 +15,6 @@ class CleanColumnNames(TransformerMixin, BaseEstimator):
 
     _pattern = re.compile(r"[^0-9a-zA-Z_]")
 
-
     def __sklearn_tags__(self):
         tags = super().__sklearn_tags__()
         return dataframe_only_tags(tags)

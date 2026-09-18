@@ -29,7 +29,6 @@ class DateFeatureExtractor(TransformerMixin, BaseEstimator):
         If True, drop the source datetime columns after expansion.
     """
 
-
     def __sklearn_tags__(self):
         tags = super().__sklearn_tags__()
         return dataframe_only_tags(tags)

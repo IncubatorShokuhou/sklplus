@@ -28,7 +28,6 @@ class RareCategoryGrouper(TransformerMixin, BaseEstimator):
         Label used for grouped rare categories.
     """
 
-
     def __sklearn_tags__(self):
         tags = super().__sklearn_tags__()
         return dataframe_only_tags(tags)

@@ -34,7 +34,6 @@ class TextEmbedder(TransformerMixin, BaseEstimator):
         in v1).
     """
 
-
     def __sklearn_tags__(self):
         tags = super().__sklearn_tags__()
         return dataframe_only_tags(tags)

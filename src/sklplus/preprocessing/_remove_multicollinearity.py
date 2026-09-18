@@ -21,7 +21,6 @@ class RemoveMulticollinearity(TransformerMixin, BaseEstimator):
         the feature with higher absolute correlation to ``y``.
     """
 
-
     def __sklearn_tags__(self):
         tags = super().__sklearn_tags__()
         return dataframe_only_tags(tags)
