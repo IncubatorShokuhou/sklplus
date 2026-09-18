@@ -5,7 +5,7 @@ from sklplus._coverage import PUBLIC_SYMBOLS
 
 def test_version():
     import sklplus
-    assert sklplus.__version__ == "0.1.2"
+    assert sklplus.__version__ == "0.2.0"
 
 
 @pytest.mark.parametrize("module_path,attr", PUBLIC_SYMBOLS)

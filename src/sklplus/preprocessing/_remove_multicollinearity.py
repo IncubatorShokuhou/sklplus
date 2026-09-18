@@ -6,8 +6,10 @@ import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from sklplus._tags import dataframe_only_tags
 
-class RemoveMulticollinearity(BaseEstimator, TransformerMixin):
+
+class RemoveMulticollinearity(TransformerMixin, BaseEstimator):
     """Drop one of each highly correlated numeric feature pair.
 
     Parameters
@@ -18,6 +20,10 @@ class RemoveMulticollinearity(BaseEstimator, TransformerMixin):
         If True and ``y`` is provided at ``fit``, among a correlated pair keep
         the feature with higher absolute correlation to ``y``.
     """
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        return dataframe_only_tags(tags)
 
     def __init__(self, threshold: float = 0.9, prefer_target: bool = True):
         self.threshold = threshold

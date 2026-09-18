@@ -1,6 +1,6 @@
 [project]
 name = "sklplus"
-version = "0.1.2"
+version = "0.2.0"
 description = "Big sklearn: re-exports and light wrappers for tabular ML pipelines"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -13,6 +13,14 @@ dependencies = [
   "pandas",
   "scipy",
   "joblib",
+]
+
+[project.optional-dependencies]
+boost = ["xgboost", "lightgbm", "catboost"]
+imblearn = ["imbalanced-learn"]
+anomaly = ["pyod"]
+extra = ["kmodes", "category-encoders", "feature-engine"]
+all = [
   "xgboost",
   "lightgbm",
   "catboost",
@@ -22,8 +30,6 @@ dependencies = [
   "category-encoders",
   "feature-engine",
 ]
-
-[project.optional-dependencies]
 dev = ["pytest>=7", "ruff"]
 
 [project.urls]

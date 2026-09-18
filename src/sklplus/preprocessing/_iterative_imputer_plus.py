@@ -8,6 +8,8 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.experimental import enable_iterative_imputer  # noqa: F401
 from sklearn.impute import IterativeImputer, SimpleImputer
 
+from sklplus._tags import dataframe_only_tags
+
 
 def _is_categorical_like(series: pd.Series) -> bool:
     return bool(
@@ -18,7 +20,17 @@ def _is_categorical_like(series: pd.Series) -> bool:
     )
 
 
-class IterativeImputerPlus(BaseEstimator, TransformerMixin):
+def _as_object_with_nan(frame: pd.DataFrame) -> pd.DataFrame:
+    """Object frame where pandas/Python missing values are ``np.nan``.
+
+    ``SimpleImputer`` defaults to ``missing_values=np.nan`` and may leave
+    bare ``None`` unfilled on some pandas/sklearn combinations.
+    """
+    out = frame.astype("object").copy()
+    return out.where(pd.notna(out), other=np.nan)
+
+
+class IterativeImputerPlus(TransformerMixin, BaseEstimator):
     """Impute numeric columns with ``IterativeImputer``; categoricals with mode.
 
     Limitation
@@ -27,6 +39,10 @@ class IterativeImputerPlus(BaseEstimator, TransformerMixin):
     not part of the iterative numeric model. Ordinal-encode-then-impute is not
     done in this v1.
     """
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        return dataframe_only_tags(tags)
 
     def __init__(
         self,
@@ -55,7 +71,9 @@ class IterativeImputerPlus(BaseEstimator, TransformerMixin):
         self.categorical_imputer_ = None
         if self.categorical_columns_:
             self.categorical_imputer_ = SimpleImputer(strategy=self.categorical_strategy)
-            self.categorical_imputer_.fit(X[self.categorical_columns_].astype("object"))
+            self.categorical_imputer_.fit(
+                _as_object_with_nan(X[self.categorical_columns_])
+            )
         return self
 
     def transform(self, X):
@@ -67,7 +85,7 @@ class IterativeImputerPlus(BaseEstimator, TransformerMixin):
             out[self.numeric_columns_] = imputed
         if self.categorical_imputer_ is not None and self.categorical_columns_:
             imputed_cat = self.categorical_imputer_.transform(
-                out[self.categorical_columns_].astype("object")
+                _as_object_with_nan(out[self.categorical_columns_])
             )
             out[self.categorical_columns_] = imputed_cat
         return out

@@ -29,6 +29,13 @@ class RemoveOutliers(BaseEstimator):
         Random seed where supported (iforest / ee).
     """
 
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        # Sampler API (fit_resample); not a sklearn transformer.
+        tags.input_tags.allow_nan = False
+        return tags
+
     def __init__(
         self,
         method: str = "iforest",

@@ -5,6 +5,8 @@ from __future__ import annotations
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from sklplus._tags import dataframe_only_tags
+
 
 def _is_categorical_like(series: pd.Series) -> bool:
     return bool(
@@ -15,7 +17,7 @@ def _is_categorical_like(series: pd.Series) -> bool:
     )
 
 
-class RareCategoryGrouper(BaseEstimator, TransformerMixin):
+class RareCategoryGrouper(TransformerMixin, BaseEstimator):
     """Replace rare levels in object/category/string columns.
 
     Parameters
@@ -25,6 +27,10 @@ class RareCategoryGrouper(BaseEstimator, TransformerMixin):
     replacement :
         Label used for grouped rare categories.
     """
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        return dataframe_only_tags(tags)
 
     def __init__(self, min_frequency: float = 0.05, replacement: str = "rare"):
         self.min_frequency = min_frequency

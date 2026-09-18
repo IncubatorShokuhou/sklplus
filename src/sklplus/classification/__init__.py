@@ -1,3 +1,10 @@
+"""Classification task hub. Boost symbols need extra ``boost``."""
+
+from __future__ import annotations
+
+from importlib import import_module
+from typing import Any
+
 from sklplus.discriminant_analysis import (
     LinearDiscriminantAnalysis,
     QuadraticDiscriminantAnalysis,
@@ -7,14 +14,11 @@ from sklplus.ensemble import (
     AdaBoostClassifier,
     BaggingClassifier,
     CalibratedClassifierCV,
-    CatBoostClassifier,
     ExtraTreesClassifier,
     GradientBoostingClassifier,
-    LGBMClassifier,
     RandomForestClassifier,
     StackingClassifier,
     VotingClassifier,
-    XGBClassifier,
 )
 from sklplus.gaussian_process import GaussianProcessClassifier
 from sklplus.linear_model import LogisticRegression, RidgeClassifier, SGDClassifier
@@ -23,6 +27,12 @@ from sklplus.neighbors import KNeighborsClassifier
 from sklplus.neural_network import MLPClassifier
 from sklplus.svm import SVC
 from sklplus.tree import DecisionTreeClassifier
+
+_BOOST_EXPORTS: dict[str, tuple[str, str]] = {
+    "CatBoostClassifier": ("sklplus.catboost", "CatBoostClassifier"),
+    "LGBMClassifier": ("sklplus.lightgbm", "LGBMClassifier"),
+    "XGBClassifier": ("sklplus.xgboost", "XGBClassifier"),
+}
 
 __all__ = [
     "AdaBoostClassifier",
@@ -49,3 +59,17 @@ __all__ = [
     "VotingClassifier",
     "XGBClassifier",
 ]
+
+
+def __getattr__(name: str) -> Any:
+    if name in _BOOST_EXPORTS:
+        module_name, attr = _BOOST_EXPORTS[name]
+        mod = import_module(module_name)
+        value = getattr(mod, attr)
+        globals()[name] = value
+        return value
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
+def __dir__() -> list[str]:
+    return sorted(__all__)
