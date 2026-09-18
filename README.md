@@ -62,6 +62,35 @@ from sklplus.xgboost import XGBClassifier as B
 assert A is B
 ```
 
+### Task hubs and ensemble technique slices
+
+sklearn-style modules (`linear_model`, `ensemble`, `xgboost`, …) stay put. Two extra hubs re-export the same objects by task:
+
+```python
+from sklplus.classification import LogisticRegression, XGBClassifier
+from sklplus.regression import Ridge, XGBRegressor
+from sklplus.linear_model import LogisticRegression as LM
+from sklplus.xgboost import XGBClassifier as XGB
+assert LogisticRegression is LM
+assert XGBClassifier is XGB
+```
+
+`sklplus.ensemble` is still the full umbrella. Technique submodules are slices, not moves:
+
+- `sklplus.ensemble.bagging` — `BaggingClassifier` / `BaggingRegressor` only (RF / ExtraTrees stay on the umbrella)
+- `sklplus.ensemble.boosting` — AdaBoost, GradientBoosting, XGB, LGBM, CatBoost
+- `sklplus.ensemble.stacking` — `StackingClassifier` / `StackingRegressor`
+- `sklplus.ensemble.voting` — `VotingClassifier` / `VotingRegressor`
+
+```python
+from sklplus.ensemble.boosting import XGBClassifier as A
+from sklplus.xgboost import XGBClassifier as B
+from sklplus.ensemble import XGBClassifier as C
+assert A is B is C
+```
+
+There is no top-level `sklplus.stacking`, and no `get_model` / factory.
+
 ### Resampling and pipeline checks
 
 Use `ImbPipeline` when a step calls `fit_resample` (e.g. `SMOTE`, `RemoveOutliers`).
