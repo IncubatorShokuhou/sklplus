@@ -148,7 +148,7 @@ Anomaly detectors under `sklplus.anomaly` are thin wrappers around pyod (`IFores
 
 ## Known gaps
 
-Still open: Optuna/skopt search wrappers; broader `check_estimator` coverage. P1 custom preprocessors / `RemoveOutliers` sampler are implemented. Pipeline conflict checks and classification/regression task hubs are in.
+Still open: Optuna/skopt search wrappers. Custom preprocessors pass `sklearn.base.clone` and `check_estimator` with DataFrame-only tags (`two_d_array=False`, so ndarray suites are skipped by design); `TargetLabelEncoder` / `RemoveOutliers` / anomaly adapters have clone smoke. P1 preprocessors / `RemoveOutliers`, pipeline conflict checks, and classification/regression hubs are in. Optional heavy deps are extras since 0.2.0.
 
 License: MIT (see `LICENSE`).
 

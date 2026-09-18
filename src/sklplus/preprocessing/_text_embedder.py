@@ -8,10 +8,12 @@ import numpy as np
 import pandas as pd
 from scipy import sparse
 from sklearn.base import BaseEstimator, TransformerMixin
+
+from sklplus._tags import dataframe_only_tags
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 
-class TextEmbedder(BaseEstimator, TransformerMixin):
+class TextEmbedder(TransformerMixin, BaseEstimator):
     """Apply BoW or TF-IDF to text columns and concatenate dense features.
 
     Parameters
@@ -32,6 +34,11 @@ class TextEmbedder(BaseEstimator, TransformerMixin):
         in v1).
     """
 
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        return dataframe_only_tags(tags)
+
     def __init__(
         self,
         columns: Sequence[str] | None = None,
@@ -40,7 +47,7 @@ class TextEmbedder(BaseEstimator, TransformerMixin):
         drop_original: bool = True,
         dense: bool = True,
     ):
-        self.columns = None if columns is None else list(columns)
+        self.columns = columns
         self.method = method
         self.max_features = max_features
         self.drop_original = drop_original
@@ -60,10 +67,11 @@ class TextEmbedder(BaseEstimator, TransformerMixin):
                 or pd.api.types.is_string_dtype(X[c])
             ]
         else:
-            missing = [c for c in self.columns if c not in X.columns]
+            cols = list(self.columns)
+            missing = [c for c in cols if c not in X.columns]
             if missing:
                 raise ValueError(f"Text columns missing: {missing}")
-            self.text_columns_ = list(self.columns)
+            self.text_columns_ = cols
 
         Vectorizer = CountVectorizer if self.method == "bow" else TfidfVectorizer
         self.vectorizers_ = {}

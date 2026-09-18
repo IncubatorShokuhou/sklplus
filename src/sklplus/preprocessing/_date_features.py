@@ -7,6 +7,8 @@ from collections.abc import Sequence
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from sklplus._tags import dataframe_only_tags
+
 
 def _is_datetime_like(series: pd.Series) -> bool:
     dtype = series.dtype
@@ -16,7 +18,7 @@ def _is_datetime_like(series: pd.Series) -> bool:
     )
 
 
-class DateFeatureExtractor(BaseEstimator, TransformerMixin):
+class DateFeatureExtractor(TransformerMixin, BaseEstimator):
     """Extract calendar parts from datetime columns.
 
     Parameters
@@ -27,12 +29,17 @@ class DateFeatureExtractor(BaseEstimator, TransformerMixin):
         If True, drop the source datetime columns after expansion.
     """
 
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        return dataframe_only_tags(tags)
+
     def __init__(
         self,
         features: Sequence[str] = ("year", "month", "day", "dayofweek"),
         drop_original: bool = True,
     ):
-        self.features = tuple(features)
+        self.features = features
         self.drop_original = drop_original
 
     def fit(self, X, y=None):

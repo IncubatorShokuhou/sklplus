@@ -8,6 +8,8 @@ import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from sklplus._tags import dataframe_only_tags
+
 
 _AGG_FUNCS = {
     "min": np.nanmin,
@@ -32,7 +34,7 @@ def _row_mode(arr: np.ndarray) -> np.ndarray:
     return out
 
 
-class GroupFeatures(BaseEstimator, TransformerMixin):
+class GroupFeatures(TransformerMixin, BaseEstimator):
     """Emit per-row aggregate statistics for named column groups.
 
     Parameters
@@ -46,6 +48,11 @@ class GroupFeatures(BaseEstimator, TransformerMixin):
         If True, drop the source columns that appear in any group.
     """
 
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        return dataframe_only_tags(tags)
+
     def __init__(
         self,
         groups: Mapping[str, Sequence[str]] | None = None,
@@ -53,7 +60,7 @@ class GroupFeatures(BaseEstimator, TransformerMixin):
         drop_original: bool = False,
     ):
         self.groups = groups
-        self.aggregations = tuple(aggregations)
+        self.aggregations = aggregations
         self.drop_original = drop_original
 
     def fit(self, X, y=None):

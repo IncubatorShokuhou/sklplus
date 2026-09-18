@@ -17,6 +17,15 @@ class TargetLabelEncoder(BaseEstimator):
         y_hat = enc.inverse_transform(yt)
     """
 
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        # y-only target encoder: not an X→X transformer for check_estimator.
+        tags.input_tags.two_d_array = False
+        tags.target_tags.required = True
+        tags.target_tags.one_d_labels = True
+        return tags
+
     def fit(self, y):
         self.encoder_ = LabelEncoder()
         self.encoder_.fit(y)

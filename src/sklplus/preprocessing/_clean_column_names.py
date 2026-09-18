@@ -7,16 +7,24 @@ import re
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from sklplus._tags import dataframe_only_tags
 
-class CleanColumnNames(BaseEstimator, TransformerMixin):
+
+class CleanColumnNames(TransformerMixin, BaseEstimator):
     """Replace non-alphanumeric/underscore characters in column names with `_`."""
 
     _pattern = re.compile(r"[^0-9a-zA-Z_]")
+
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        return dataframe_only_tags(tags)
 
     def fit(self, X, y=None):
         if not isinstance(X, pd.DataFrame):
             raise TypeError("CleanColumnNames expects a pandas DataFrame")
         self.feature_names_in_ = list(X.columns)
+        self.n_features_in_ = X.shape[1]
         self.feature_names_out_ = [self._pattern.sub("_", str(c)) for c in X.columns]
         return self
 

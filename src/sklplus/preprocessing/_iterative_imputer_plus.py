@@ -5,6 +5,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
+
+from sklplus._tags import dataframe_only_tags
 from sklearn.experimental import enable_iterative_imputer  # noqa: F401
 from sklearn.impute import IterativeImputer, SimpleImputer
 
@@ -18,7 +20,7 @@ def _is_categorical_like(series: pd.Series) -> bool:
     )
 
 
-class IterativeImputerPlus(BaseEstimator, TransformerMixin):
+class IterativeImputerPlus(TransformerMixin, BaseEstimator):
     """Impute numeric columns with ``IterativeImputer``; categoricals with mode.
 
     Limitation
@@ -27,6 +29,11 @@ class IterativeImputerPlus(BaseEstimator, TransformerMixin):
     not part of the iterative numeric model. Ordinal-encode-then-impute is not
     done in this v1.
     """
+
+
+    def __sklearn_tags__(self):
+        tags = super().__sklearn_tags__()
+        return dataframe_only_tags(tags)
 
     def __init__(
         self,

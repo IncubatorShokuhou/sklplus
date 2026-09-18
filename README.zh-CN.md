@@ -148,7 +148,7 @@ python examples/01_classification_pipeline.py
 
 ## 已知缺口
 
-仍缺：Optuna/skopt 搜索封装；更完整的 `check_estimator`。P1 自写预处理 / `RemoveOutliers` 采样器已实现。Pipeline 冲突检查与 classification/regression 任务聚合已合入。
+仍缺：Optuna/skopt 搜索封装。自写预处理器已通过 `sklearn.base.clone` 与带 DataFrame-only 标签的 `check_estimator`（`two_d_array=False`，按设计跳过 ndarray 套件）；`TargetLabelEncoder` / `RemoveOutliers` / anomaly 适配器有 clone 冒烟。P1 预处理 / `RemoveOutliers`、Pipeline 冲突检查与 classification/regression 任务聚合已合入。自 0.2.0 起重型依赖改为 extras。
 
 许可证：MIT（见 `LICENSE`）。
 
