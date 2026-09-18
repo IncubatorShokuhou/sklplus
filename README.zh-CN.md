@@ -62,6 +62,35 @@ from sklplus.xgboost import XGBClassifier as B
 assert A is B
 ```
 
+### 任务聚合与 ensemble 技法切片
+
+sklearn 风格路径（`linear_model`、`ensemble`、`xgboost` 等）原样保留。另外按任务再导出同一批对象：
+
+```python
+from sklplus.classification import LogisticRegression, XGBClassifier
+from sklplus.regression import Ridge, XGBRegressor
+from sklplus.linear_model import LogisticRegression as LM
+from sklplus.xgboost import XGBClassifier as XGB
+assert LogisticRegression is LM
+assert XGBClassifier is XGB
+```
+
+`sklplus.ensemble` 仍是全集。技法子模块只是切片，实现没有搬家：
+
+- `sklplus.ensemble.bagging` — 只有 `BaggingClassifier` / `BaggingRegressor`（RF / ExtraTrees 仍在全集里）
+- `sklplus.ensemble.boosting` — AdaBoost、GradientBoosting、XGB、LGBM、CatBoost
+- `sklplus.ensemble.stacking` — `StackingClassifier` / `StackingRegressor`
+- `sklplus.ensemble.voting` — `VotingClassifier` / `VotingRegressor`
+
+```python
+from sklplus.ensemble.boosting import XGBClassifier as A
+from sklplus.xgboost import XGBClassifier as B
+from sklplus.ensemble import XGBClassifier as C
+assert A is B is C
+```
+
+没有顶层 `sklplus.stacking`，也没有 `get_model` / 工厂。
+
 ### 重采样与 Pipeline 检查
 
 步骤里有 `fit_resample`（例如 `SMOTE`、`RemoveOutliers`）时用 `ImbPipeline`。
