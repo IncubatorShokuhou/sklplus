@@ -2,7 +2,7 @@
 
 [中文文档](README.zh-CN.md) · [中文项目页](https://incubatorshokuhou.github.io/sklplus/) · [Wiki](https://github.com/IncubatorShokuhou/sklplus/wiki)
 
-sklplus 0.1.1 is a thin umbrella around scikit-learn-style tabular estimators. Most symbols are re-exports (often the same object as upstream). A few adapters and custom preprocessors fill gaps we care about when building `Pipeline`s by hand.
+sklplus 0.1.2 is a thin umbrella around scikit-learn-style tabular estimators. Most symbols are re-exports (often the same object as upstream). A few adapters and custom preprocessors fill gaps we care about when building `Pipeline`s by hand.
 
 It is for people who want `from sklplus.… import …` and standard `fit` / `transform` / `predict` composition. It is not AutoML: there is no `get_model`, no `setup()`, and no string-ID model factory.
 
@@ -114,7 +114,7 @@ Scripts under [`examples/`](examples/):
 python examples/01_classification_pipeline.py
 ```
 
-## Custom preprocessors in 0.1.1
+## Custom preprocessors in 0.1.2
 
 These live in `sklplus.preprocessing` (alongside re-exported scalers/encoders):
 
@@ -138,8 +138,8 @@ Anomaly detectors under `sklplus.anomaly` are thin wrappers around pyod (`IFores
 
 ## Known gaps
 
-Still open: Optuna/skopt search wrappers; broader `check_estimator` coverage. P1 custom preprocessors / `RemoveOutliers` sampler are implemented.
+Still open: Optuna/skopt search wrappers; broader `check_estimator` coverage. P1 custom preprocessors / `RemoveOutliers` sampler are implemented. Pipeline conflict checks and classification/regression task hubs are in.
 
 License: MIT (see `LICENSE`).
 
-Contributing: TODO.
+Contributing: see [`CONTRIBUTING.md`](CONTRIBUTING.md).
