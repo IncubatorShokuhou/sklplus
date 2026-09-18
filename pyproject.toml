@@ -1,6 +1,6 @@
 [project]
 name = "sklplus"
-version = "0.1.1"
+version = "0.1.2"
 description = "Big sklearn: re-exports and light wrappers for tabular ML pipelines"
 readme = "README.md"
 requires-python = ">=3.10"
